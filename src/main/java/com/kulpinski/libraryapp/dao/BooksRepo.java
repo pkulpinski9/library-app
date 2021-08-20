@@ -4,6 +4,9 @@ import com.kulpinski.libraryapp.dao.entity.Books;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BooksRepo extends CrudRepository<Books, Long> {
+
 }

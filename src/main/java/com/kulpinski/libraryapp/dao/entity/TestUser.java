@@ -9,10 +9,16 @@ public class TestUser {
 
     public TestUser(AppUserRepo appUserRepo, PasswordEncoder passwordEncoder){
 
+        AppUser appUserAdmin = new AppUser();
+        appUserAdmin.setUsername("admin");
+        appUserAdmin.setPassword(passwordEncoder.encode("admin"));
+        appUserAdmin.setRole("ROLE_ADMIN");
+        appUserRepo.save(appUserAdmin);
+
         AppUser appUser = new AppUser();
-        appUser.setUsername("pawel");
-        appUser.setPassword(passwordEncoder.encode("123"));
-        appUser.setRole("ADMIN");
+        appUser.setUsername("user");
+        appUser.setPassword(passwordEncoder.encode("user"));
+        appUser.setRole("ROLE_USER");
         appUserRepo.save(appUser);
     }
 }
