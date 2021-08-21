@@ -33,9 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         http.headers().disable();
-        http.authorizeRequests()
+        http.httpBasic().and().authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/api/books/all").authenticated()
                 .antMatchers(HttpMethod.POST,"/api/books/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/api/books/").hasRole("ADMIN")
@@ -45,7 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().permitAll()
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .and()
+                .csrf().disable();
     }
 
 }
