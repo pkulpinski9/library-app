@@ -13,24 +13,29 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping
 
 public class UsersApi {
 
-    private UsersManager usersList;
+    private UsersManager usersManager;
 
     @Autowired
     public UsersApi(UsersManager usersList) {
-        this.usersList = usersList;
+        this.usersManager = usersList;
     }
 
     @GetMapping("/home")
     public String home(){
         return "home view hello";
     }
-    @GetMapping("/all")
+    @GetMapping("/api/users/all")
     public Iterable<AppUser> getAll(){
-        return usersList.findAll();
+        return usersManager.findAll();
+    }
+    @PostMapping("/register")
+    public AppUser addUser(@RequestBody AppUser appUser){
+        usersManager.addUser(appUser);
+        return appUser;
     }
     //@PostMapping
    // public Books addBooks(@RequestBody Books books){
