@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 @Entity
 public class Rent {
@@ -13,6 +14,10 @@ public class Rent {
     private Long id;
     private Long idUser;
     private Long idBooks;
+    private LocalDate rentDate;
+
+    public Rent() {
+    }
 
 
 }

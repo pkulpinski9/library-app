@@ -16,18 +16,15 @@ public class Books {
 
     private String category;
 
-    private Float price;
-
     private Long count;
 
     public Books() {
     }
 
-    public Books(Long id, String title, String category, Float price, Long count) {
+    public Books(Long id, String title, String category, Long count) {
         this.id = id;
         this.title = title;
         this.category = category;
-        this.price = price;
         this.count = count;
     }
 
@@ -53,14 +50,6 @@ public class Books {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
     }
 
     public Long getCount() {

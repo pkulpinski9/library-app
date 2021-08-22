@@ -7,6 +7,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -31,15 +32,36 @@ public class BooksManager {
         return booksRepo.save(books);
     }
 
+    @Transactional
+    public void returnBook(Long id) throws Exception {
+        Books books = booksRepo.findById(id)
+                .orElseThrow(() -> new Exception("Book with id: " + id + " is not found."));
+        Long count = books.getCount() + 1;
+        books.setCount(count);
+        booksRepo.save(books);
+    }
+
+    @Transactional
+    public void rentBook(Long id) throws Exception {
+        Books books = booksRepo.findById(id)
+                .orElseThrow(() -> new Exception("Book with id: " + id + " is not found."));
+        Long count = books.getCount() - 1;
+        if (count < 0) {
+            throw new Exception("Not enough book in store to sell.");
+        }
+        books.setCount(count);
+        booksRepo.save(books);
+    }
+
     public void deleteById(Long id){
         booksRepo.deleteById(id);
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillDb(){
-        save(new Books(1L, "The Hobbit", "Fantasy", 39.99F, 4L));
-        save(new Books(2L, "The Witcher", "Fantasy", 24.99F, 7L));
-        save(new Books(3L, "Autobiography", "Drama", 19.99F, 3L));
+        save(new Books(1L, "The Hobbit", "Fantasy", 4L));
+        save(new Books(2L, "The Witcher", "Fantasy", 7L));
+        save(new Books(3L, "Autobiography", "Drama", 3L));
 
     }
 }

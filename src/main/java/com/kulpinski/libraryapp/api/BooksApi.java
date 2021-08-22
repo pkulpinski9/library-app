@@ -41,6 +41,16 @@ public class BooksApi {
         return booksList.save(books);
     }
 
+    @PutMapping("/return/")
+    public void returnBook(@RequestParam Long index) throws Exception {
+        booksList.returnBook(index);
+    }
+
+    @PutMapping("/rent/")
+    public void sellBook(@RequestParam Long index) throws Exception {
+        booksList.rentBook(index);
+    }
+
     @DeleteMapping
     public void deleteBooks(@RequestParam Long index){
        booksList.deleteById(index);
