@@ -2,9 +2,6 @@ package com.kulpinski.libraryapp.api;
 
 import com.kulpinski.libraryapp.dao.entity.AppUser;
 import com.kulpinski.libraryapp.manager.UsersManager;
-import com.kulpinski.libraryapp.security.SecurityConfig;
-import com.kulpinski.libraryapp.dao.entity.Books;
-import com.kulpinski.libraryapp.manager.BooksManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +14,11 @@ import java.util.Optional;
 
 public class UsersApi {
 
-    private UsersManager usersManager;
+    private UsersManager usersList;
 
     @Autowired
     public UsersApi(UsersManager usersList) {
-        this.usersManager = usersList;
+        this.usersList = usersList;
     }
 
     @GetMapping("/home")
@@ -30,15 +27,15 @@ public class UsersApi {
     }
     @GetMapping("/api/users/all")
     public Iterable<AppUser> getAll(){
-        return usersManager.findAll();
+        return usersList.findAll();
+    }
+    @GetMapping("/api/users/{userId}")
+    public Optional<AppUser> getById(@PathVariable Long userId){
+        return usersList.findById(userId);
     }
     @PostMapping("/register")
     public AppUser addUser(@RequestBody AppUser appUser){
-        usersManager.addUser(appUser);
+        usersList.addUser(appUser);
         return appUser;
     }
-    //@PostMapping
-   // public Books addBooks(@RequestBody Books books){
-   //     return booksList.save(books);
-    //}
 }

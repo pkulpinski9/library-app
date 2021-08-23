@@ -32,26 +32,27 @@ public class BooksManager {
         return booksRepo.save(books);
     }
 
-    @Transactional
-    public void returnBook(Long id) throws Exception {
-        Books books = booksRepo.findById(id)
-                .orElseThrow(() -> new Exception("Book with id: " + id + " is not found."));
-        Long count = books.getCount() + 1;
-        books.setCount(count);
-        booksRepo.save(books);
-    }
 
-    @Transactional
-    public void rentBook(Long id) throws Exception {
-        Books books = booksRepo.findById(id)
-                .orElseThrow(() -> new Exception("Book with id: " + id + " is not found."));
-        Long count = books.getCount() - 1;
-        if (count < 0) {
-            throw new Exception("Not enough book in store to sell.");
-        }
-        books.setCount(count);
-        booksRepo.save(books);
-    }
+//    @Transactional
+//    public void returnBook(Long id) throws Exception {
+//        Books books = booksRepo.findById(id)
+//                .orElseThrow(() -> new Exception("Book with id: " + id + " is not found."));
+//        Long count = books.getCount() + 1;
+//        books.setCount(count);
+//        booksRepo.save(books);
+//    }
+//
+//    @Transactional
+//    public void rentBook(Long id) throws Exception {
+//        Books books = booksRepo.findById(id)
+//                .orElseThrow(() -> new Exception("Book with id: " + id + " is not found."));
+//        Long count = books.getCount() - 1;
+//        if (count < 0) {
+//            throw new Exception("Not enough book in store to sell.");
+//        }
+//        books.setCount(count);
+//        booksRepo.save(books);
+//    }
 
     public void deleteById(Long id){
         booksRepo.deleteById(id);

@@ -1,8 +1,6 @@
 package com.kulpinski.libraryapp.manager;
 
 import com.kulpinski.libraryapp.dao.AppUserRepo;
-import com.kulpinski.libraryapp.dao.BooksRepo;
-import com.kulpinski.libraryapp.dao.entity.Books;
 import com.kulpinski.libraryapp.dao.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

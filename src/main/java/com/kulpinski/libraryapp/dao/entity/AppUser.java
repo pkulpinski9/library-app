@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class AppUser implements UserDetails {
@@ -14,7 +16,12 @@ public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long id;
+    Long id;
+
+
+    @ManyToMany(mappedBy = "myUsers")
+    private Set<Books> myBooks = new HashSet<>();
+
     private String username;
     private String password;
     //private String myBooks;
@@ -47,6 +54,10 @@ public class AppUser implements UserDetails {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Set<Books> getMyBooks() {
+        return myBooks;
     }
 
     @Override

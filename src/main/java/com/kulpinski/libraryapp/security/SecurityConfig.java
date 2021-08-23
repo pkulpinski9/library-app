@@ -35,12 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().disable();
         http.httpBasic().and().authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/api/books/all").authenticated()
+                .antMatchers(HttpMethod.GET,"/api/books/all").hasAnyRole("ADMIN", "USER")
                 .antMatchers(HttpMethod.POST,"/api/books/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/api/books/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT,"/api/books/").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT,"/api/rent/").hasRole("USER")
-                .antMatchers(HttpMethod.PUT,"/api/return/").hasRole("USER")
+                .antMatchers(HttpMethod.PUT,"/api/books/{bookId}/rent/{userId}").hasRole("USER")
+                .antMatchers(HttpMethod.PUT,"/api/users/{userId}").hasRole("USER")
                 .antMatchers("/api/users/all").hasRole("ADMIN")
                 //.antMatchers("/console").hasRole("ADMIN")
                 .and()

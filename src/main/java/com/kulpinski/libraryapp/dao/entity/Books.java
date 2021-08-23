@@ -1,16 +1,28 @@
 package com.kulpinski.libraryapp.dao.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Books {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long id;
+    Long id;
+
+
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name="my_books",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<AppUser> myUsers = new HashSet<>();
 
     private String title;
 
@@ -58,5 +70,13 @@ public class Books {
 
     public void setCount(Long count) {
         this.count = count;
+    }
+
+    public Set<AppUser> getMyUsers() {
+        return myUsers;
+    }
+
+    public void myUsers(AppUser appUser) {
+        myUsers.add(appUser);
     }
 }
